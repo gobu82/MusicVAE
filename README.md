@@ -8,7 +8,7 @@
 - 관련 논문: https://arxiv.org/pdf/1803.05428.pdf
 - 관련 데이터: https://magenta.tensorflow.org/datasets/groove
 
-## 과제 진행
+## 프로젝트 진행
 
 1. 환경 설정
 - 실행 환경 : 구글 코랩 + 구글 드라이브 마운트
@@ -34,3 +34,9 @@
 6. 샘플 추출
 - 현재 목표에서 모델의 성능은 고려하지 않기 때문에 마지막 체크포인트를 사용
 - 깃헙 코드(https://colab.research.google.com/github/magenta/magenta-demos/blob/master/colab-notebooks/MusicVAE.ipynb#scrollTo=zRUlAshMpDnR) 참고하여 샘플 추출
+
+## 상세 내용
+- VAE
+  - 훈련 데이터가 가지는 데이터 분포와 같은 분포에서 샘플링된 값으로 새로운 데이터를 생성하는 Generative model로써 해당 데이터와 유사하지만 완전히 새로운 데이터를 생성하는 모델
+  - 입력 데이터가 들어오면 해당 데이터에서의 다양한 특징들이 각각의 확률 변수가 되는 확률 분포를 만들어, 입력데이터의 분포를 잘 근사하는 데이터를 생성
+
