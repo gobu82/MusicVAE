@@ -39,4 +39,28 @@
 - VAE
   - 훈련 데이터가 가지는 데이터 분포와 같은 분포에서 샘플링된 값으로 새로운 데이터를 생성하는 Generative model로써 해당 데이터와 유사하지만 완전히 새로운 데이터를 생성하는 모델
   - 입력 데이터가 들어오면 해당 데이터에서의 다양한 특징들이 각각의 확률 변수가 되는 확률 분포를 만들어, 입력데이터의 분포를 잘 근사하는 데이터를 생성
+
+
 ![vae_구조](https://user-images.githubusercontent.com/58794670/187360174-d6cfa03a-6521-4848-8561-a0062f9a6d3d.png)
+
+- VAE의 단점
+  - 시퀀스가 길어지면 성능이 떨어지는 문제가 있음
+  - 따라서 MusicVAE에서는 hierarchical decoder를 사용함
+  - 이 구조는 모델이 잠재 코드를 활용하도록 장려하여 posterior collapse 문제를 방지
+
+    - posterior collapse
+      - VAE 모델은 latent z를 이용하여 시퀀스를 생성하는데, 이때 decoder가 encoder를 무시하고 sequence를 생성하는 현상
+      - 원인
+        1. Decoder가 latent z없이 과거 데이터만으로 충분히 generation이 가능한 경우
+        2. 조건에 맞는 다양한 latent z가 존재할 수 있는 가능성이 있는 경우
+        3. VAE의 local information을 선호하는 경향
+        4. 학습 초기에 encoder가 meaningful z를 표현하지 못한 경우
+        5. 가정한 Gaussian prior에 아무런 의미 있는 정보가 없는 경우
+        6. ELBO와 evidence 사이의 gap, true posterior approximation의 실패
+
+- 데이터 구조
+  - 참고 논문에 따르면 각 음표를 16개의 간격으로 양자화하여 각 마디를 16개의 이벤트로 구성함
+  - 따라서 1마디에 길이 16, 4마디는 데이터 길이가 64가 되고, 각 시퀀스는 하나의 마디에 해당함
+
+- 모델
+  - 논문에서 사용한 활성화 함수로는 Adam을 사용하며 batch_size 는 512
